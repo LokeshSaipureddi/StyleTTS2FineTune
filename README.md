@@ -1,7 +1,7 @@
 # StyleTTS2 Fine-Tuning Guide
 
 This repository provides a guide on how to prepare a dataset and execute fine-tuning using the StyleTTS2 process. https://github.com/yl4579/StyleTTS2
-
+### If you still need to curate your dataset. You might want to checkout https://github.com/IIEleven11/Automatic-Audio-Dataset-Maker. At the end you'll need to convert it from .csv to STTSv2's .txt format (train_list.txt and val_list.txt) but that should be easy.
 ## Changelog
 - **7/25/2024**: Added a specific output format (srt), condition on previous text, max line width, max line count, and segment resolution to the whisperx command. (Note: max_line_width is supposed to keep it under 250 chars. It sometimes doesn't work. If anyone can figure that out let me know)
 - **6/8/2024**: There's now a curate.ipynb notebook. Use it to analyze and prune your dataset. It will give you a few visuals and possible points of concern about your dataset. I highly highly suggest you use it. 
@@ -31,21 +31,26 @@ The scripts are compatible with WSL2 and Linux. Windows requires additional depe
 
 ## Install Pytorch
 
-    - pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 -U
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 -U
 
 ## Install whisperx/phonemize and segmentation packages
 
-    - pip install git+https://github.com/m-bain/whisperx.git
-    - pip install phonemizer pydub pysrt tqdm
+   1. ``` pip install git+https://github.com/m-bain/whisperx.git ```
+    
+   2. ``` pip install phonemizer pydub pysrt tqdm ```
 
 ### Data Preparation
 
 1. Change directory to where you have unpacked StyleTTSFineTune (You should see the makeDataset folder)
 2. To make base directories you can run segmenter script. It will create the folders.
 
-   1. run python srtsegmenter.py
+   1. run
+      - ``` python srtsegmenter.py ```
+
 3. Add WAV audio file/s to the audio directory (remove special characters, brackets, parenthesis to prevent issues)
+
 4. **** This step isnt mandatory **** for the training process. You can run whisperx and segmentation without adding silence. If you do want to add silence then silencebuffer.py within the tools folder will go over your audio file, find the silent portions between sentences/breaks in speech, and add a specific length of silence to them. This could in theory provide a more accurate cut during the segmentation process. You MUST adjust the parameters within the script to fit your data. I left the values that worked for my dataset in the code, you can try them as defaults if you wish.
+
 5. Run the following command to generate srt files for all files in the audio folder:
 
    - Linux -

@@ -5,7 +5,6 @@ from tqdm import tqdm
 # from phonemizer.backend.espeak.wrapper import EspeakWrapper                ## For Windows
 # EspeakWrapper.set_library("C:\Program Files\eSpeak NG\libespeak-ng.dll")  ## For Windows
 
-
 # argument parser
 parser = argparse.ArgumentParser(description="Phonemize transcriptions.")
 parser.add_argument(
