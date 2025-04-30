@@ -1,1 +1,5 @@
 /StyleGuide/StyleTTS2/*
+/makeDataset/tools/segmentedAudio
+/makeDataset/tools/audio
+/makeDataset/tools/badAudio
+.wav
